@@ -1,4 +1,10 @@
-//Bring in all dependencies
+/**
+ * Server Main entry point of the app
+ * @Author: Khalid Elshafie <abolkog>
+ * @Date:   2017-09-28T00:35:12+09:00
+ * @Email:  Khalid@abolkog.com
+ */
+
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
