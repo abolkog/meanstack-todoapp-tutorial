@@ -24,12 +24,12 @@ UserSchema.pre('save', function(next) {
     //Generate Salt Value
     bcrypt.genSalt(10, (err, salt) => {
       if (err) {
-        return next(erro);
+        return next(err);
       }
       //Use this salt value to hash password
       bcrypt.hash(this.password, salt, (err, hash) => {
         if (err) {
-          return next(erro);
+          return next(err);
         }
         this.password = hash;
         next();
