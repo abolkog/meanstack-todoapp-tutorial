@@ -9,6 +9,7 @@
 
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const User = require('../models/user.js')
 
 
@@ -48,11 +49,19 @@ router.post('/auth', (req, res, next) => {
         }
 
         //User is Valid
+
+        const ONE_WEEK = 604800; //Token validtity in seconds
+
+        //Generating the token
+        const token = jwt.sign({ user }, process.env.SECRET, { expiresIn: ONE_WEEK });
+
+        //User Is Valid
         //This object is just used to remove the password from the retuned fields
         let returnUser = {
           name: user.name,
           email: user.email,
-          id: user._id
+          id: user._id,
+          token
         }
 
         //Send the response back

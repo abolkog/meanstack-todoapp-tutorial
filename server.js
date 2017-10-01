@@ -9,11 +9,13 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodayParser = require('body-parser');
+const passport = require('passport');
 
 //Intiailzie app with express
 const app = express();
 
 const UserRoutes = require('./routes/users');
+const TaskRoutes = require('./routes/tasks');
 
 //Database Connection
 mongoose.Promise = global.Promise; // Fix Deprecation issue
@@ -29,8 +31,13 @@ mongoose.connection.on('error',  (err) => {
 const _PORT = process.env.PORT;
 
 //---------------- Middlewares ----------------//
+//Body Parser MW
 app.use(bodayParser.json());
 
+//Passport MW
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
 //---------------- Middlewares ----------------//
 
 //Index Rotuer
@@ -40,6 +47,7 @@ app.get('/', (req, res, next) => {
 
 //Users Routes
 app.use('/users', UserRoutes);
+app.use('/tasks', TaskRoutes);
 
 //Start the server
 app.listen(_PORT, () => {

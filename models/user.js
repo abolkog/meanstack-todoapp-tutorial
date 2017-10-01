@@ -21,6 +21,10 @@ const UserSchema = mongoose.Schema({
 //Pre Save Hook. Used to hash the password
 UserSchema.pre('save', function(next) {
 
+     if (!this.isModified('password'))  {
+       return next();
+     }
+
     //Generate Salt Value
     bcrypt.genSalt(10, (err, salt) => {
       if (err) {
