@@ -7,6 +7,8 @@
 
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bodayParser = require('body-parser');
 const passport = require('passport');
@@ -31,6 +33,8 @@ mongoose.connection.on('error',  (err) => {
 const _PORT = process.env.PORT;
 
 //---------------- Middlewares ----------------//
+//CROS MW
+app.use(cors());
 //Body Parser MW
 app.use(bodayParser.json());
 
@@ -39,6 +43,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
 //---------------- Middlewares ----------------//
+
+//Static Publc folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Index Rotuer
 app.get('/', (req, res, next) => {
