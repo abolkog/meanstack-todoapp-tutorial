@@ -1,4 +1,14 @@
+/**
+ * @Author: Khalid Elshafie <khalid>
+ * @Date:   2017-10-06T22:08:45+09:00
+ * @Email:  Khalid@abolkog.com
+ */
+
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
+
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +17,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  email: string;
+  password: string;
 
-  ngOnInit() {
+  constructor(
+    private _userService :UserService,
+    private _flash :FlashMessagesService,
+    private _router :Router
+  ) { }
+
+  ngOnInit() {}
+
+  onLogin(){
+
+    if(!this.email || !this.password) {
+      this._flash.show('All fields are required', { cssClass: 'alert-danger'});
+      return false;
+    }
+
+    const user = {
+      email: this.email,
+      password: this.password
+    }
+
+    this._userService.auth(user).subscribe(
+      resp => {
+        if (!resp.success) {
+          this._flash.show(resp.message, { cssClass: 'alert-danger'});
+          return false;
+        }
+
+        this._userService.saveUserDate(resp.token, resp.user);
+        this._router.navigate(['/main']);
+      }
+    );
+
   }
-
 }

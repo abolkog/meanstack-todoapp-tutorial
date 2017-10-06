@@ -60,15 +60,15 @@ router.post('/auth', (req, res, next) => {
         let returnUser = {
           name: user.name,
           email: user.email,
-          id: user._id,
-          token
+          id: user._id
         }
 
         //Send the response back
         return res.send({
           success: true,
           message: 'You can login now',
-          user: returnUser
+          user: returnUser,
+          token
         });
     });
 

@@ -20,10 +20,12 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserService } from './services/user.service';
-
+import { MainComponent } from './components/main/main.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const AppRoutes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'main', component: MainComponent, canActivate: [AuthGuard]},
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
 ];
@@ -34,7 +36,8 @@ const AppRoutes: Routes = [
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ const AppRoutes: Routes = [
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    UserService
+    UserService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
