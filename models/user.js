@@ -12,6 +12,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 // Schema Definition
+//TODO: Assignment: Add Validate rule for email to be unique
+
 const UserSchema = mongoose.Schema({
   name: String,
   email: { type: String, required: true },

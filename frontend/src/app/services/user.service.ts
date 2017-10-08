@@ -37,4 +37,8 @@ export class UserService {
     localStorage.removeItem(AppUtil.AUTH_TOKEN);
     localStorage.removeItem(AppUtil.USER_INFO);
   }
+
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem(AppUtil.USER_INFO));
+  }
 }

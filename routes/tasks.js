@@ -55,6 +55,9 @@ router.post('/list', passport.authenticate('jwt', { session : false}), (req, res
 
 //Delete Task
 router.delete('/remove/:id', passport.authenticate('jwt', { session : false}), (req, res, next) => {
+
+  //TODO: Validate if the the task belongs to the person deleting it (check owner)
+
   const taskId = req.params.id;
   Task.remove({ _id: taskId }, (err) => {
       if(err) {
