@@ -44,7 +44,7 @@ app.use(passport.session());
 require('./config/passport')(passport);
 //---------------- Middlewares ----------------//
 
-//Static Publc folder
+//Static public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Index Rotuer
