@@ -21,7 +21,7 @@ const TaskRoutes = require('./routes/tasks');
 
 //Database Connection
 mongoose.Promise = global.Promise; // Fix Deprecation issue
-mongoose.connect(process.env.DATABASE, { useMongoClient: true });
+mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 mongoose.connection.on('connected', () => {
   console.log('Connected to the database');
 });
