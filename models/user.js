@@ -49,7 +49,7 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods.isPasswordMatch = function(plainPassword, hashed, callback) {
   bcrypt.compare(plainPassword, hashed, (err, isMatch) => {
     if (err) {
-      next(err);
+      return callback(err);
     }
     callback(null, isMatch);
   });
